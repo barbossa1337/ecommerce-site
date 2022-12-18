@@ -63,4 +63,4 @@ const ProductSlider = ({category}) => {
     )
 }
 
-export default ProductSlider;
+export default React.memo(ProductSlider);
