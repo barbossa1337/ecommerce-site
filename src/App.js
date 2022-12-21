@@ -8,6 +8,7 @@ import Naav from "./Components/Nav/Naav";
 import Footer from "./Components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import {ToastContainer} from "react-toastify";
+import "./App.scss";
 
 function App() {
     return (
