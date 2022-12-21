@@ -1,8 +1,9 @@
 import React from "react";
+import EmptyCart from "../../Components/EmptyCart/EmptyCart";
 
 const Cart = () => {
     return (
-        <h2>Cart Component</h2>
+        <EmptyCart/>
     );
 }
 

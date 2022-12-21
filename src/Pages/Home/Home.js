@@ -1,15 +1,16 @@
 import React from "react";
 import ProductList from "../../Components/ProductList/ProductList";
-import ProductSlider from "../../Components/Slider/ProductSlider";
+import Slider from "../../Components/Slider/Slider";
+import styles from "./home.module.scss";
+import Category from "../../Components/Category/Category";
 
 const Home = () => {
     return (
-    <div>Home Component
-        <h2>Slider</h2>
-        <h2>Category</h2>
-        <ProductSlider />
-        <ProductList />
-    </div>
+        <div className={styles.mainWrapper}>
+            <Slider/>
+            <Category/>
+            <ProductList/>
+        </div>
     );
 }
 
