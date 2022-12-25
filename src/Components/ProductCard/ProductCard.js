@@ -3,11 +3,15 @@ import styles from './productcard.module.scss';
 import {Button, Card} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../Redux/features/Cart/CartSlice";
 
 const ProductCard = ({product}) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const title = product?.title.slice(0, 20);
     const addProduct = () => {
+        dispatch(addToCart(product))
         toast.success(`${product?.title.slice(0, 20)} is added to cart.`, {autoClose: 1500});
     }
     return (

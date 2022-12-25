@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import styles from "./naav.module.scss";
+import {useSelector} from "react-redux";
 
 const Naav = () => {
     const menus = [
@@ -22,6 +23,7 @@ const Naav = () => {
             path: "/wishlist"
         }
     ]
+    const {cart} = useSelector((state) => state.cart);
     return (
         <div>
             <Navbar expand="lg" className={`${styles.navBar} fixed-top`}>
@@ -42,7 +44,7 @@ const Naav = () => {
                             <NavLink to="/cart" className={`${styles.navLink} ${styles.cartIcon}`}>
                                 <AiOutlineShoppingCart size={23}/>{" "}
                                 <div className={styles.cartLength}>
-                                    <h6>5</h6>
+                                    <h6>{cart?.length}</h6>
                                 </div>
                             </NavLink>
                         </Nav>
