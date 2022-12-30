@@ -9,6 +9,7 @@ import Footer from "./Components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import {ToastContainer} from "react-toastify";
 import "./App.scss";
+import ProductDetail from "./Components/ProductDetail/ProductDetail";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/about" element={<About/>}/>
                         <Route path="/cart" element={<Cart/>}/>
+                        <Route path="/products/:id" element={<ProductDetail/>}/>
                         <Route path="/wishlist" element={<WishList/>}/>
                         <Route path="*" element={<ErrorPage/>}/>
                     </Routes>
