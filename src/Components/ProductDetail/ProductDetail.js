@@ -1,6 +1,6 @@
 import React from 'react'
 import {Breadcrumb} from 'react-bootstrap';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {addToCart} from '../../Redux/features/Cart/CartSlice';
@@ -8,13 +8,15 @@ import useFetch from '../../Services/usefetch';
 import Loader from '../Loader/Loader';
 import ProductSlider from '../Slider/ProductSlider';
 import styles from './productdetail.module.scss'
+import {addToWishList, removeFromWishlist} from "../../Redux/features/Wishlist/WishlistSlice";
 
 const ProductDetail = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    //Todo:WishList
+    const state = useSelector((state) => state.wishlist.wishList)
+        .some((p) => p?.id?.toString() === id);
 
     const {data, error, loading} = useFetch(`/${id}`);
     if (!error && loading) {
@@ -26,10 +28,18 @@ const ProductDetail = () => {
 
     const productHandler = () => {
         dispatch(addToCart(data));
-        toast.success(`${data?.title.slice(0, 20)} is added to cart`, {
-            autoClose: 1000
-        });
+        toast.success(`${data?.title.slice(0, 20)} is added to cart`, {autoClose: 1000});
     };
+
+    const wishListHandler = () => {
+        if (state) {
+            dispatch(removeFromWishlist(data));
+            toast.warning(`${data?.title.slice(0, 20)} is remove from wish list`,{autoClose: 1000});
+        } else {
+            dispatch(addToWishList(data));
+            toast.success(`${data?.title.slice(0, 20)} is added to your wish list`, {autoClose: 1000});
+        }
+    }
     return (
         <div className={`${styles.detailWrapper} container py-4`}>
             <Breadcrumb>
@@ -51,7 +61,9 @@ const ProductDetail = () => {
                     <p className='py-1'>{data?.description}</p>
                     <h5>Price : ${data?.price}</h5>
                     <button onClick={productHandler} className='btn btn-primary mt-2'> Add To Cart</button>
-                    <button>WISHLIST</button>
+                    <button className='btn btn-primary mt-2' onClick={() => wishListHandler()}>
+                        {state? 'Remove from wishlist' : 'Add to wishlist'}
+                    </button>
                 </div>
             </div>
             <div className={styles.productSliderWrapper}>
